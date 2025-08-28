@@ -1,32 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import { useCreateSurveyProvider } from "./CreateSurveyProvider";
-import CreateSurveyContent from "./CreateSurveyContent";
 
 const CreateSurveySidebar = ({ surveySeriesId }) => {
-  const { questions, surveyTitle, surveyDescription } = useCreateSurveyProvider();
-  const progress = Math.floor(
-    ((surveyTitle.trim() !== "") +
-     (surveyDescription.trim() !== "") +
-     (questions.length > 0 && !questions.some(q => !q.saved))) /
-    3 *
-    100
-  );
+  const {
+    surveyTitle,
+    surveyDescription,
+    questions
+  } = useCreateSurveyProvider();
+
+  // Safely handle potentially undefined values
+  const title = surveyTitle || '';
+  const description = surveyDescription || '';
 
   return (
-    <aside className="p-4 bg-white rounded shadow">
-      <div className="mb-4">
-      </div>
-
-      <div className="mb-6">
-        <h3 className="font-medium">Progress</h3>
-        <div className="mt-2 bg-gray-100 h-2 rounded-full overflow-hidden">
-          <div className="bg-green-500 h-full" style={{ width: `${progress}%` }} />
+    <div className="bg-white rounded-lg shadow-sm p-4">
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-lg font-medium">Survey Details</h3>
+          <p className="text-sm text-gray-600">Title: {title.trim()}</p>
+          <p className="text-sm text-gray-600">Description: {description.trim()}</p>
         </div>
-        <p className="mt-1 text-sm font-semibold">{progress}% complete</p>
+        <div>
+          <h4 className="text-md font-medium">Questions: {questions?.length || 0}</h4>
+        </div>
       </div>
-
-      <CreateSurveyContent />
-    </aside>
+    </div>
   );
 };
 
