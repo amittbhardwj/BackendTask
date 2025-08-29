@@ -31,52 +31,142 @@ Your job is to:
 
     * Return the generated JSON so the frontend can render the new survey form automatically.
 
+# AI-Powered Survey Generator
+
+A full-stack application that generates structured surveys from natural language descriptions using AI.
+
 ## Tech Stack
 
-* **Language:** Python (3.11)
-* **Framework:** Flask or FastAPI
-* **AI Integration:** OpenAI API (or equivalent LLM)
+### Backend
+- **FastAPI**: Chosen over Flask for:
+  - Native async support
+  - Automatic OpenAPI documentation
+  - Better type hints and validation
+  - Modern Python features
+- **PostgreSQL**: For efficient caching and data persistence
+- **Google Gemini API**: For AI-powered survey generation
+- **SQLAlchemy**: For ORM and database management
+- **Pydantic**: For data validation and settings management
 
-## What We are Evaluating
+### Frontend
+- **React**: For building a dynamic user interface
+- **Axios**: For API communication
+- **TailwindCSS**: For styling
 
-* **Architecture & Design**
+## Setup & Installation
 
-  * Logical separation of concerns (routes, services, models), clear dependency injection or config management.
-* **Code Quality**
+1. **Clone the repository**
+```bash
+git clone <repository-url>
+cd BackendTask
+```
 
-  * Clean, modular, well-documented code following best practices and style guides.
-* **API Design**
+2. **Set up environment variables**
+```bash
+# Backend (.env)
+GEMINI_API_KEY=your_gemini_api_key
+DATABASE_URL=postgresql://postgres:postgres@localhost/survey_db
+RATE_LIMIT=100
 
-  * RESTful principles, clear request/response schemas, proper status codes and error messages.
-* **Integration & Robustness**
+# Frontend (.env)
+REACT_APP_API_URL=http://localhost:8000
+```
 
-  * Correct handling of API keys, timeouts, retries, input validation, and error cases.
-* **Performance & Security**
+3. **Using Docker (Recommended)**
+```bash
+docker compose up --build
+```
 
-  * Efficient request handling, minimal cold-start overhead, sanitization of inputs.
-* **Documentation**
+4. **Manual Setup**
 
-  * Clear README explaining setup, env vars, how to run, and any design decisions.
+Backend:
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
 
-## Submission
+Frontend:
+```bash
+cd frontend
+npm install
+npm start
+```
 
-Provide one of the following:
+## Features
 
-* A GitHub repository (with public or private access) or a ZIP archive containing your code.
-* (Optional) A deployed version of your backend (e.g. on Heroku, Vercel Functions, or similar) with URL.
+### Core Implementation
+- FastAPI backend with PostgreSQL integration
+- AI-powered survey generation with Gemini API
+- Caching mechanism for repeated requests
+- React frontend with dynamic form generation
 
-Include a brief README that covers:
+### Additional Features
+- Rate limiting for API protection
+- Error handling and logging
+- Docker containerization
+- API response caching
+- Clean architecture with separation of concerns
 
-* Tech choices (why Flask vs. FastAPI, any libraries you picked)
-* Setup & Run instructions (install, env vars, start server)
-* Areas of focus (What did you implement that other candidates might not have?)
+## API Documentation
 
-## Bonus Points
+Access the API documentation at:
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
-* **Dockerization:** supply a Dockerfile and easy docker-compose setup.
-* **Testing:** Unit and/or integration tests covering core functionality.
-* **Authentication:** simple token check on your API.
-* **Rate limiting:** prevent abuse of the generation endpoint.
-* **Security:**
+## Project Structure
+```
+BackendTask/
+├── backend/
+│   ├── app/
+│   │   ├── main.py          # FastAPI application
+│   │   ├── models.py        # Database models
+│   │   ├── services.py      # Business logic
+│   │   └── config.py        # Configuration
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── components/      # React components
+│   │   ├── pages/          # Page components
+│   │   └── App.js          # Main app component
+│   └── package.json
+└── docker-compose.yml
+```
 
-Feel free to innovate beyond the spec. If you see an opportunity to improve UX or backend architecture, show us. Good luck!
+## Development
+
+- Backend runs on http://localhost:8000
+- Frontend runs on http://localhost:3000
+- PostgreSQL runs on localhost:5432
+
+## Areas of Focus
+
+1. **Architecture**
+   - Clean code structure
+   - Separation of concerns
+   - Dependency injection
+
+2. **Performance**
+   - Database caching
+   - Rate limiting
+   - Efficient API responses
+
+3. **Developer Experience**
+   - Docker setup
+   - Comprehensive documentation
+   - Easy environment setup
+
+4. **Security**
+   - Environment variable management
+   - API rate limiting
+   - Error handling
+
+## Future Improvements
+
+- Add authentication
+- Implement unit tests
+- Add survey analytics
+- Improve error handling
+- Add input validation
